@@ -1,3 +1,1 @@
-module Storcs
-  # Your code goes here...
-end
+require 'storcs/device'
