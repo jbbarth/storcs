@@ -2,14 +2,14 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe Storcs::Parsers::Ibm do
   it "divides a profile file into small sections" do
-    sections = Storcs::Parsers::Ibm.new('spec/data/ibm_DS4500.txt').sections
+    sections = Storcs::Parsers::Ibm.new('ds4500','spec/data/ibm_DS4500.txt').sections
     sections.should be_a Hash
     sections.keys.length.should == 11
     sections[:arrays].should be_an Array
   end
 
   it "returns a list of arrays with name+raid type" do
-    arrays = Storcs::Parsers::Ibm.new('spec/data/ibm_DS4500.txt').arrays
+    arrays = Storcs::Parsers::Ibm.new('ds4500','spec/data/ibm_DS4500.txt').arrays
     arrays.length.should == 15
     first = arrays.first
     first.should be_a Storcs::Device
@@ -18,7 +18,7 @@ describe Storcs::Parsers::Ibm do
   end
 
   it "divides each array into a set of logical volumes" do
-    array = Storcs::Parsers::Ibm.new('spec/data/ibm_DS4500.txt').arrays.first
+    array = Storcs::Parsers::Ibm.new('ds4500','spec/data/ibm_DS4500.txt').arrays.first
     array.should be_a Storcs::Device
     array.children.should have_exactly(17).items
     first = array.children.first
@@ -31,9 +31,10 @@ describe Storcs::Parsers::Ibm do
   end
 
   it "parses the output of a 'SMcli X.X.X.X 'show storagesubsystem profile;'" do
-    parsed = Storcs::Parsers::Ibm.new('spec/data/ibm_DS4500.txt')
+    parsed = Storcs::Parsers::Ibm.new('ds4500','spec/data/ibm_DS4500.txt')
     bay = parsed.device
     bay.should_not be_nil
+    bay.name.should == "ds4500"
     arrays = bay.children
     arrays.length.should == 15
     bay.size.should == 12285713148014

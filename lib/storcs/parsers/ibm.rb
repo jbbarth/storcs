@@ -4,8 +4,8 @@ module Storcs::Parsers
 
     attr_accessor :device
 
-    def initialize(file)
-      @device = Storcs::Device.new("")
+    def initialize(name,file)
+      @device = Storcs::Device.new(name)
       @lines = File.readlines(file)
       parse!(@lines)
     end

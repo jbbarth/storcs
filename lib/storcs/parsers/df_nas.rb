@@ -2,7 +2,8 @@ module Storcs::Parsers
   class DfNas
     attr_accessor :device
 
-    def initialize(file)
+    def initialize(name,file)
+      @device = Storcs::Device.new(name)
       parse!(File.readlines(file))
     end
 
@@ -12,7 +13,6 @@ module Storcs::Parsers
       end.detect do |a|
         a[1] && a[1].match(/^\d+$/)
       end
-      @device = Storcs::Device.new("")
       @device.real_size = ary[1].to_i * 1024
       @device.real_used = ary[2].to_i * 1024
     end
