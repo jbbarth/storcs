@@ -21,4 +21,9 @@ describe Storcs::Device do
     @bay.size.should == 20
     @bay.free.should == 9
   end
+
+  it "calculates the percent used and free" do
+    @bay.percent_used.should == 55
+    @bay.percent_free.should == 45
+  end
 end

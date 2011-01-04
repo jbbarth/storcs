@@ -24,5 +24,13 @@ module Storcs
     def free
       size - used
     end
+
+    def percent_used
+      (100 * used / size).round
+    end
+
+    def percent_free
+      (100 * free / size).round
+    end
   end
 end
