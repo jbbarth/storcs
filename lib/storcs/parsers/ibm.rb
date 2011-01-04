@@ -1,5 +1,7 @@
 module Storcs::Parsers
   class Ibm
+    include Storcs::Parsers::Utils
+
     attr_accessor :device
 
     def initialize(file)
