@@ -1,0 +1,2 @@
+Filesystem           1M-blocks      Used Available Use% Mounted on
+192.168.0.1:/mnt/vol0    795481    598024    197457      76% /mnt/server/vol0
