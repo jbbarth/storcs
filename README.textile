@@ -1,0 +1,44 @@
+h1. Storcs
+
+h2. Description
+
+Storcs (STORage Calculation Service) is a gem designed to help you manage centralized storages in a datacenter. It's especially appropriate for having a unique visibility on heterogeneous datacenters where many SAN or NAS devices are used. It currently reports the following elements :
+* total size, used size and free size (computed from sum of children's ones if any, recursively)
+* percent_used and percent_free, based on the previous metrics
+* raid type if applicable and accessible
+
+Those calulcations are performed on a state file for each device you have. The way you generate the state file depends on the type of the storage system.
+
+For the moment, it has only been tested on the following devices :
+* IBM DS4000 series (tested with a DS3400, a DS4100, a DS4300 and a DS4500)
+* Equalogic PS5000 and PS6000 series (tested with a PS5000XV and a PS6000)
+* simple 'df -Pk' on Linux boxes (tested with various NAS devices)
+
+h2. Installation
+
+Just type: @gem install storcs@
+
+h2. Parsers
+
+A parser is an adapter specific to your device. Parser implementation depends on the way you retrieve your storage informations. Basically, it takes a name and a file, parse the file, and build a Storcs::Device object based on the parsed informations. For instance: <pre>
+parsed = Storcs::Parsers::DfNas.new("my-shiny-nas.example.com", "/path/to/df-k_output.txt")
+device = parsed.device
+</pre>
+
+h3. df -k
+
+This is the simplest parser. It analyzes the output of a @df -Pk@ command on a mounted filesystem, possibly a local filesystem or a NAS attached with NFS or CIFS: <pre>
+df -kP |grep <mask_specific_to_your_server> > file.txt
+</pre>
+
+h3. IBM DS4000 series
+
+It parses a 'profile' text file, which can be obtained :
+* by saving the file manually in the Fast Storage Manager graphical client (manual)
+* by running a command on your management IP with the 'SMcli' client (automatic) : <pre>
+SMcli 192.0.0.15 -c 'show storagesubsystem profile;' > file.txt
+</pre>
+
+h3. Equalogic PS5000 and PS6000
+
+It parses the output of a 'show' command in the shell. Unfortunately, I wasn't able to run it remotely since my network administrator didn't allow me. So I have a script based on the "expect" tool with the @show@ command inside.
