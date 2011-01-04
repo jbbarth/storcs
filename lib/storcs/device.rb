@@ -1,6 +1,6 @@
 module Storcs
   class Device
-    attr_accessor :name, :children, :real_used, :real_size
+    attr_accessor :name, :children, :real_used, :real_size, :raid
 
     def initialize(name)
       @name = name
