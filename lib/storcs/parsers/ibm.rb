@@ -41,7 +41,4 @@ module Storcs::Parsers
       @arrays
     end
   end
-
-  class IbmArray < Struct.new(:name, :raid)
-  end
 end
