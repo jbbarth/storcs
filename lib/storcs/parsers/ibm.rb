@@ -30,13 +30,15 @@ module Storcs::Parsers
     end
 
     def arrays
-      sections[:arrays].map do |line|
+      return @arrays if @arrays
+      @arrays = sections[:arrays].map do |line|
         if line.match /^   (ARRAY \d+)\s+\(RAID (\w+)\)/
           s = Storcs::Device.new($1)
           s.raid = $2
           s
         end
       end.compact
+      @arrays
     end
   end
 
