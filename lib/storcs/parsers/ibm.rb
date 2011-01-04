@@ -44,10 +44,11 @@ module Storcs::Parsers
         elsif line.match /^\s*$/
           logical_drive_list = false
         elsif current_array && logical_drive_list
+          line.gsub!(/Free Capacity/,"free")
           name, raw_size = line.strip.scan(/(\S+)\s+(.+)/).first
           ld = Storcs::Device.new(name)
           ld.real_size = parse_size(raw_size)
-          ld.real_used = ld.real_size
+          ld.real_used = (name == "free" ? 0 : ld.real_size)
           current_array.children << ld
         end
       end.compact

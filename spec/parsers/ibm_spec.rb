@@ -25,6 +25,9 @@ describe Storcs::Parsers::Ibm do
     first.should be_a Storcs::Device
     first.name.should == "array1_LUN0_app01_5G"
     first.size.should == 5368709120
+    first.used.should == first.size
+    array.size.should == 1316496596795
+    array.used.should == 655826473713
   end
 
   it "parses the output of a 'SMcli X.X.X.X 'show storagesubsystem profile;'" do
@@ -33,8 +36,8 @@ describe Storcs::Parsers::Ibm do
     bay.should_not be_nil
     arrays = bay.children
     arrays.length.should == 15
-    #bay.used.should == 598024
-    #bay.size.should == 795481
-    #bay.free.should == 197457
+    bay.size.should == 12285713148014
+    bay.used.should == 11460324586680
+    bay.free.should == 825388561334
   end
 end
