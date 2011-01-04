@@ -31,11 +31,24 @@ module Storcs::Parsers
 
     def arrays
       return @arrays if @arrays
-      @arrays = sections[:arrays].map do |line|
+      @arrays = []
+      current_array = nil
+      logical_drive_list = false
+      sections[:arrays].map do |line|
         if line.match /^   (ARRAY \d+)\s+\(RAID (\w+)\)/
-          s = Storcs::Device.new($1)
-          s.raid = $2
-          s
+          current_array = Storcs::Device.new($1)
+          current_array.raid = $2
+          @arrays << current_array
+        elsif line.match /^\s{8,}LOGICAL DRIVE NAME/
+          logical_drive_list = true
+        elsif line.match /^\s*$/
+          logical_drive_list = false
+        elsif current_array && logical_drive_list
+          name, raw_size = line.strip.scan(/(\S+)\s+(.+)/).first
+          ld = Storcs::Device.new(name)
+          ld.real_size = parse_size(raw_size)
+          ld.real_used = ld.real_size
+          current_array.children << ld
         end
       end.compact
       @arrays

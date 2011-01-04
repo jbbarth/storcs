@@ -17,6 +17,16 @@ describe Storcs::Parsers::Ibm do
     first.raid.should == "5"
   end
 
+  it "divides each array into a set of logical volumes" do
+    array = Storcs::Parsers::Ibm.new('spec/data/ibm_DS4500.txt').arrays.first
+    array.should be_a Storcs::Device
+    array.children.should have_exactly(17).items
+    first = array.children.first
+    first.should be_a Storcs::Device
+    first.name.should == "array1_LUN0_app01_5G"
+    first.size.should == 5368709120
+  end
+
   it "parses the output of a 'SMcli X.X.X.X 'show storagesubsystem profile;'" do
     parsed = Storcs::Parsers::Ibm.new('spec/data/ibm_DS4500.txt')
     bay = parsed.device
