@@ -20,24 +20,24 @@ Just type: @gem install storcs@
 
 h2. Parsers
 
-A parser is an adapter specific to your device. Parser implementation depends on the way you retrieve your storage informations. Basically, it takes a name and a file, parse the file, and build a Storcs::Device object based on the parsed informations. For instance: <pre>
-parsed = Storcs::Parsers::DfNas.new("my-shiny-nas.example.com", "/path/to/df-k_output.txt")
-device = parsed.device
-</pre>
+A parser is an adapter specific to your device. Parser implementation depends on the way you retrieve your storage informations. Basically, it takes a name and a file, parse the file, and build a Storcs::Device object based on the parsed informations. For instance:
+
+  parsed = Storcs::Parsers::DfNas.new("my-shiny-nas.example.com", "/path/to/df-k_output.txt")
+  device = parsed.device
 
 h3. df -k
 
-This is the simplest parser. It analyzes the output of a @df -Pk@ command on a mounted filesystem, possibly a local filesystem or a NAS attached with NFS or CIFS: <pre>
-df -kP |grep <mask_specific_to_your_server> > file.txt
-</pre>
+This is the simplest parser. It analyzes the output of a @df -Pk@ command on a mounted filesystem, possibly a local filesystem or a NAS attached with NFS or CIFS:
+
+  df -kP |grep <mask_specific_to_your_server> > file.txt
 
 h3. IBM DS4000 series
 
 It parses a 'profile' text file, which can be obtained :
 * by saving the file manually in the Fast Storage Manager graphical client (manual)
-* by running a command on your management IP with the 'SMcli' client (automatic) : <pre>
-SMcli 192.0.0.15 -c 'show storagesubsystem profile;' > file.txt
-</pre>
+* by running a command on your management IP with the 'SMcli' client (automatic) :
+
+  SMcli 192.0.0.15 -c 'show storagesubsystem profile;' > file.txt
 
 h3. Equalogic PS5000 and PS6000
 
