@@ -16,7 +16,10 @@ For the moment, it has only been tested on the following devices :
 
 h2. Installation
 
-Just type: @gem install storcs@
+Build the gem and install it:
+
+bc. gem build storcs.gemspec
+gem install storcs-*.gem
 
 h2. Parsers
 
