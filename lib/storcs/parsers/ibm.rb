@@ -12,6 +12,7 @@ module Storcs::Parsers
 
     def parse!(content)
       @device.children = arrays
+      @device.real_unassigned = unassigned
     end
 
     def sections
@@ -53,6 +54,22 @@ module Storcs::Parsers
         end
       end.compact
       @arrays
+    end
+
+    def unassigned
+      return @unassigned if @unassigned
+      @unassigned = 0
+      in_unassigned = false
+      sections[:drives].map do |line|
+        if line.match /Unassigned/
+          in_unassigned = true
+        elsif line.match /^\s*$/
+          in_unassigned = false
+        elsif in_unassigned && line.match(/Usable capacity:\s+(.+)$/)
+          @unassigned += parse_size($1)
+        end
+      end.compact
+      @unassigned
     end
   end
 end

@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe Storcs::Parsers::Ibm do
-  it "parses the output of a 'SMcli X.X.X.X 'show storagesubsystem profile;'" do
+  it "parses the output of a 'SMcli X.X.X.X show storagesubsystem profile;'" do
     parsed = Storcs::Parsers::Ibm.new('ds4500','spec/data/ibm_DS4500.txt')
     bay = parsed.device
     bay.should_not be_nil
@@ -11,6 +11,7 @@ describe Storcs::Parsers::Ibm do
     bay.size.should == 12285713148014
     bay.used.should == 11460324586680
     bay.free.should == 825388561334
+    bay.unassigned.should == 731389980835
   end
 
   it "divides a profile file into small sections" do

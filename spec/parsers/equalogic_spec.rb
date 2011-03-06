@@ -9,6 +9,7 @@ describe Storcs::Parsers::Equalogic do
     bay.size.should == 4020012968837
     bay.used.should == 3972897177600
     bay.free.should ==   47115791237
+    bay.unassigned.should == 0
   end
 
   it "divides the bay into a set of logical volumes" do

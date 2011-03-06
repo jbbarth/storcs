@@ -1,12 +1,13 @@
 module Storcs
   class Device
-    attr_accessor :name, :children, :real_used, :real_size, :raid
+    attr_accessor :name, :children, :real_used, :real_size, :real_unassigned, :raid
 
     def initialize(name)
       @name = name
       @children = []
       @real_used = nil
       @real_size = nil
+      @real_unassigned = nil
     end
 
     def size
@@ -23,6 +24,12 @@ module Storcs
 
     def free
       size - used
+    end
+
+    def unassigned
+      real_unassigned || children.inject(0) do |memo,child|
+        memo + child.unassigned
+      end
     end
 
     def percent_used
