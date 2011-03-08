@@ -6,8 +6,8 @@ describe Storcs::Parsers::Ibm do
                           :first_array_name => "ARRAY 1", :first_array_raid => "5", :first_array_ld_num => 17,
                           :ld_name => "array1_LUN0_app01_5G", :ld_size => 5368709120,
                           :array_size => 1316496596795, :array_used => 655826473713 },
-            "DS3400" => { :num_arrays => 1, :num_sections => 9,
-                          :bay_size => 2395702692938, :bay_used => 2395702692938, :bay_free => 0,
+            "DS3400" => { :num_arrays => 1, :num_sections => 9, :bay_size => 2395702692938,
+                          :bay_used => 2395702692938, :bay_free => 0, :bay_unassigned => 0,
                           :first_array_name => "ARRAY 1", :first_array_raid => "5", :first_array_ld_num => 2,
                           :ld_name => "SAN01_LUN1", :ld_size => 1099511627776,
                           :array_size => 2395702692938, :array_used => 2395702692938 }
