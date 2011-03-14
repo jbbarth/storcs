@@ -1,3 +1,5 @@
+require File.expand_path('../spec_helper',__FILE__)
+
 describe Storcs::Formatter do
   include Storcs::Formatter
   it "formats sizes in bytes" do
