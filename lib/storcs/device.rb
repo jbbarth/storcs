@@ -1,35 +1,17 @@
 module Storcs
   class Device
-    attr_accessor :name, :children, :real_used, :real_size, :real_unassigned, :raid
+    extend SummableSizes
+
+    attr_accessor :name, :children, :raid
+    summable_sizes :size, :used, :unassigned
 
     def initialize(name)
       @name = name
       @children = []
-      @real_used = nil
-      @real_size = nil
-      @real_unassigned = nil
-    end
-
-    def size
-      real_size || children.inject(0) do |memo,child|
-        memo + child.size
-      end
-    end
-
-    def used
-      real_used || children.inject(0) do |memo,child|
-        memo + child.used
-      end
     end
 
     def free
       size - used
-    end
-
-    def unassigned
-      real_unassigned || children.inject(0) do |memo,child|
-        memo + child.unassigned
-      end
     end
 
     def percent_used
