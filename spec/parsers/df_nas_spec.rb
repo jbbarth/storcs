@@ -9,5 +9,7 @@ describe Storcs::Parsers::DfNas do
     parsed.device.size.should == 814572544
     parsed.device.free.should == 202195968
     parsed.device.unassigned.should == 0
+    parsed.device.percent_free.should == 24
+    parsed.device.percent_used.should == 75
   end
 end
