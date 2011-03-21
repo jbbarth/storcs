@@ -15,11 +15,11 @@ module Storcs
     end
 
     def percent_used
-      (100 * used / size).round
+      (100 * used.to_f / size).round(2)
     end
 
     def percent_free
-      (100 * free / size).round
+      (100 * free.to_f / size).round(2)
     end
   end
 end
