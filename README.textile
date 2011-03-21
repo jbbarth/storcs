@@ -9,6 +9,8 @@ Storcs (STORage Calculation Service) is a gem designed to help you manage centra
 
 Those calulcations are performed on a state file for each device you have. The way you generate the state file depends on the type of the storage system.
 
+*Calculations are performed in bytes*.
+
 For the moment, it has only been tested on the following devices :
 * IBM DS4000 series (tested with a DS3400, a DS4100, a DS4300 and a DS4500)
 * Equalogic PS5000 and PS6000 series (tested with a PS5000XV and a PS6000)
@@ -23,10 +25,71 @@ gem install storcs-*.gem
 
 h2. Parsers
 
-A parser is an adapter specific to your device. Parser implementation depends on the way you retrieve your storage informations. Basically, it takes a name and a file, parse the file, and build a Storcs::Device object based on the parsed informations. For instance:
+A parser is an adapter specific to your device. Parser implementation depends on the way you retrieve your storage informations. Basically, it takes a name and a file, parses the file, and builds a Storcs::Device object based on the parsed informations. For instance:
 
 bc. parsed = Storcs::Parsers::DfNas.new("my-shiny-nas.example.com", "/path/to/df-k_output.txt")
 device = parsed.device
+
+h2. Sizes
+
+Now that you have a "device", you can use the common methods to retrieve informations on this device :
+
+bc. device.name
+=> "my-shiny-nas.example.com"
+device.used
+=> 612376576
+device.size
+=> 814572544
+device.free
+=> 202195968
+
+ZOMG, a sum and a percentage !!
+
+Well, ok, that's not so impressive. The interesting part comes when you have nested " " " devices" " ", like in most storage devices on the market : SAN devices have enclosures, and / or raid groups, and / or arrays of disks, etc.
+
+Let's take an example without parser (parsers do all this magic for you) :
+
+bc. dev = Storcs::Device.new("my-device")
+=> #<Storcs::Device:0x9050a9c @name="my-device", @children=[]>
+array1 = Storcs::Device.new("array1"); array1.real_size=100; array1.real_used=50; array1
+=> #<Storcs::Device:0x98ee258 @name="array1", @children=[], @real_size=100, @real_used=50>
+array2 = Storcs::Device.new("array2"); array2.real_size=100; array2.real_used=25; array2
+=> #<Storcs::Device:0x98e3c7c @name="array2", @children=[], @real_size=100, @real_used=25>
+dev.children << array1; dev.children << array2
+=> ...
+dev.size
+=> 200
+dev.used
+=> 75
+dev.percent_used
+=> 37.5
+
+Imagine you have nested storage "devices", with 3, 4 or 5 levels of recursions, you probably don't want to screw your app with all those calculations.
+
+One more thing, some parsers may parse and thus provide extra attributes which are not standard / available in others. For instance, IBM parser provides ability to know the RAID type of an array, and the size of unassigned disks:
+
+bc. ibm_device.childrens.map(&:raid)
+=> ["5", "1", "5", "5"]
+ibm_device.unassigned
+=> 3142530966
+
+h2. Helper
+
+storcs gem comes with a helper method to help you format sizes, since everything is calculated in bytes internally and you probably don't want that in your final rendering.
+
+bc. include Storcs::Formatter
+pretty_size(1)
+=> "1.0bytes"
+pretty_size(12345)
+=> "12.1Kb"
+pretty_size(825388561334)
+=> "768.7Gb"
+pretty_size(12285713148014)
+=> "11.2Tb"
+
+More options can be added on the formatter side on demand.
+
+h2. Available parsers
 
 h3. df -k
 
@@ -45,3 +108,7 @@ bc. SMcli 192.0.0.15 -c 'show storagesubsystem profile;' > file.txt
 h3. Equalogic PS5000 and PS6000
 
 It parses the output of a 'show' command in the shell. Unfortunately, I wasn't able to run it remotely since my network administrator didn't allow me. So I have a script based on the "expect" tool with the @show@ command inside.
+
+h3. Yours!
+
+If you have a storage device you'd like to see in this list, feel free to open an issue here with at least an example 'profile' file (this can be the output of a command, a plain text or structured file) and the result I should find (used size/total size at least). Maybe somebody else (or me) will be interested in building a parser for your device.

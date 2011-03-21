@@ -9,7 +9,7 @@ module Storcs
     #   end
     #
     # For instance, here's the result for 'used' size:
-    # 
+    #
     #   def used
     #     real_used || children.inject(0) do |memo,child|
     #       memo + child.used
@@ -30,3 +30,4 @@ module Storcs
     end
   end
 end
+
