@@ -26,4 +26,10 @@ describe Storcs::Device do
     @bay.percent_used.should == 55
     @bay.percent_free.should == 45
   end
+
+  it "ensures a device with no size doesn't screw up on calculations" do
+    device = Storcs::Device.new("bay")
+    device.percent_used.should == 0
+    device.percent_free.should == 0
+  end
 end

@@ -15,10 +15,12 @@ module Storcs
     end
 
     def percent_used
+      return 0 unless size.integer? && size > 0
       (100 * used.to_f / size).round(2)
     end
 
     def percent_free
+      return 0 unless size.integer? && size > 0
       (100 * free.to_f / size).round(2)
     end
   end
