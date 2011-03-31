@@ -44,5 +44,14 @@ describe Storcs::Parsers::Utils do
         parse_size(k).should == v.round
       end
     end
+
+    it "knows everything about scientific notation" do
+      to_test = {
+        "3.1234E+011"                 => 3.1234*10**11,
+      }
+      to_test.each do |k,v|
+        parse_size(k).should == v.round
+      end
+    end
   end
 end
