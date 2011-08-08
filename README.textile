@@ -20,7 +20,11 @@ For the moment, it has only been tested on the following devices :
 
 h2. Installation
 
-Build the gem and install it:
+Install the stable version from rubygems.org:
+
+bc. gem install storcs
+
+Build the gem and install it from source:
 
 bc. gem build storcs.gemspec
 gem install storcs-*.gem
