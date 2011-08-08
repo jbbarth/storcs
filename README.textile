@@ -1,5 +1,7 @@
 h1. Storcs
 
+"!http://travis-ci.org/jbbarth/storcs.png!":http://travis-ci.org/jbbarth/storcs
+
 h2. Description
 
 Storcs (STORage Calculation Service) is a gem designed to help you manage centralized storages in a datacenter. It's especially appropriate for having a unique visibility on heterogeneous datacenters where many SAN or NAS devices are used. It currently reports the following elements :
