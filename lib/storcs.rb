@@ -1,3 +1,4 @@
+require 'core_ext/float'
 require 'storcs/summable_sizes'
 require 'storcs/device'
 require 'storcs/parsers'
