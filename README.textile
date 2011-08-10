@@ -1,6 +1,6 @@
 h1. Storcs
 
-"!http://travis-ci.org/jbbarth/storcs.png!":http://travis-ci.org/jbbarth/storcs
+"!https://secure.travis-ci.org/jbbarth/storcs.png!":http://travis-ci.org/jbbarth/storcs
 
 h2. Description
 
