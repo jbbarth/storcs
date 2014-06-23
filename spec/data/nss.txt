@@ -1,0 +1,54 @@
+
+IPStor Server: nss-test
+
+
+****** Storage Pool [SAN]: pool-a (ID: 2) ******
+
+Allocated Physical Devices:
+
+Device Name               ACSL         First Sector  Last Sector     Size(MB)
+-------------------------------------------------------------------------------
+VMware:Virtual disk.000   0:0:2:0             14336        20479            3
+VMware:Virtual disk.000   0:0:2:0             20480      2117631         1024
+VMware:Virtual disk.000   0:0:2:0           2117632      2123775            3
+VMware:Virtual disk.000   0:0:2:0           2123776      4220927         1024
+
+Total Allocated Space in "pool-a" (ID: 2): 2,054 MB
+
+Available Physical Devices:
+
+Device Name               ACSL         First Sector  Last Sector     Size(MB)
+-------------------------------------------------------------------------------
+VMware:Virtual disk.000   0:0:2:0           4220928     16777215         6131
+
+Total Available Space in "pool-a" (ID: 2): 6,131 MB
+
+
+****** Storage Pool [SAN]: pool-b (ID: 3) ******
+
+Allocated Physical Devices:
+
+Device Name               ACSL         First Sector  Last Sector     Size(MB)
+-------------------------------------------------------------------------------
+VMware:Virtual disk.000   0:0:3:0             14336        20479            3
+VMware:Virtual disk.000   0:0:3:0             20480      2117631         1024
+
+Total Allocated Space in "pool-b" (ID: 3): 1,027 MB
+
+Available Physical Devices:
+
+Device Name               ACSL         First Sector  Last Sector     Size(MB)
+-------------------------------------------------------------------------------
+VMware:Virtual disk.000   0:0:3:0           2117632     16777215         7158
+
+Total Available Space in "pool-b" (ID: 3): 7,158 MB
+
+
+****** Physical Devices not in storage pool ******
+
+Total Allocated Space not in Storage Pool: 0 MB
+
+Total Available Space not in Storage Pool: 0 MB
+
+Command: getpdevinfo executed successfully.
+
