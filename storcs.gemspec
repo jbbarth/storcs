@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{Storage-related calculations}
   s.description = %q{Storage-related calculations. Helps you manage your storage devices such as SAN, NAS, etc. in your CMDB}
 
-  s.add_development_dependency "rspec"
+  s.add_development_dependency "rspec", "~> 3.0.0"
   s.add_development_dependency "rspec-collection_matchers"
 
   s.rubyforge_project = "storcs"
