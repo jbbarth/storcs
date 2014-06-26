@@ -20,12 +20,13 @@ module Storcs::Parsers
 
       current_allocated = nil
       @lines.each do |line|
-        if line =~ /^Total (Available|Allocated) Space in "([^"]*)" \(ID: \d+\): (.* MB)/
+        if line =~ /^Total (Available|Allocated) Space in "([^"]*)" \(ID: \d+\): (.*) MB/
+          size = $3.tr(',', '').to_i * 1024 * 1024
           case $1
           when 'Allocated'
-            current_allocated = parse_size($3)
+            current_allocated = size
           when 'Available'
-            current_available = parse_size($3)
+            current_available = size
             @pools << Storcs::Device.new($2)
             @pools.last.real_size = current_allocated + current_available
             @pools.last.real_used = current_allocated
