@@ -1,0 +1,33 @@
+Aggregate 'aggr0'
+
+    Total space    WAFL reserve    Snap reserve    Usable space       BSR NVLOG           A-SIS          Smtape
+    573419008KB      57341880KB             0KB     516077128KB             0KB             0KB             0KB 
+
+Space allocated to volumes in the aggregate
+
+Volume                          Allocated            Used       Guarantee
+vol0                          492030416KB      12922692KB          volume
+
+Aggregate                       Allocated            Used           Avail
+Total space                   492030416KB      12922692KB      23052692KB 
+Snap reserve                          0KB        962896KB             0KB 
+WAFL reserve                   57341880KB       4693232KB      52648648KB 
+
+
+Aggregate 'aggr_SAS_data'
+
+    Total space    WAFL reserve    Snap reserve    Usable space       BSR NVLOG           A-SIS          Smtape
+  15482313216KB    1548231320KB             0KB   13934081896KB             0KB             0KB             0KB 
+
+Space allocated to volumes in the aggregate
+
+Volume                          Allocated            Used       Guarantee
+a                            4318828224KB    2018428164KB          volume
+b                            6484207568KB    4366182720KB          volume
+
+Aggregate                       Allocated            Used           Avail
+Total space                 10803035792KB    6384610884KB    2713964636KB 
+Snap reserve                          0KB     416122712KB             0KB 
+WAFL reserve                 1548231320KB     165426212KB    1382805108KB 
+
+
